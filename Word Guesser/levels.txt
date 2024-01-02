@@ -1,0 +1,177 @@
+Renderer.1 {
+    BackgroundColor = #F5F5F5;
+    BackgroundColorDisabled = #E6E6E6;
+    BackgroundColorDown = #EBEBEB;
+    BackgroundColorHover = white;
+    BorderColor = #3C3C3C;
+    BorderColorDisabled = #7D7D7D;
+    BorderColorDown = black;
+    BorderColorFocused = #1E1EB4;
+    BorderColorHover = black;
+    Borders = (0, 0, 0, 0);
+    TextColor = #3C3C3C;
+    TextColorDisabled = #7D7D7D;
+    TextColorDown = black;
+    TextColorHover = black;
+    Texture = "res/LEVEL SELECT.png" Smooth;
+    TextureDisabled = "res/LEVEL SELECT DISABLED.png" Smooth;
+    TextureDown = None;
+    TextureDownFocused = None;
+    TextureDownHover = None;
+    TextureFocused = None;
+    TextureHover = None;
+}
+
+Picture.BACKGROUND {
+    Size = (1920, 1080);
+
+    Renderer {
+        Texture = "res/SBACKGROUND.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+Button."BACK BUTTON" {
+    Position = (40, 59.548);
+    Size = (287, 79.452);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "res/SBACK BUTTON.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "res/SBACK BUTTON PRESSED.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+ScrollablePanel.ScrollablePanel1 {
+    ContentSize = (0, 0);
+    Position = (30, 370);
+    Size = (1870, 720);
+
+    Renderer {
+        BackgroundColor = #0059FF00;
+        BorderColor = black;
+        ScrollbarWidth = 0.1;
+        TextureBackground = "res/SCROLL PANEL.png" smooth;
+        TransparentTexture = false;
+
+        Scrollbar {
+            ArrowBackgroundColor = #F5F5F5;
+            ArrowBackgroundColorHover = white;
+            ArrowColor = #3C3C3C;
+            ArrowColorHover = black;
+            ThumbColor = #DCDCDC;
+            ThumbColorHover = #E6E6E6;
+            TrackColor = #F5F5F5;
+        }
+    }
+
+    Button."LEVEL SELECT BUTTON" {
+        Position = (80, 60);
+        Size = (178, 266);
+        TextSize = 62;
+        UserData = "";
+
+        Renderer {
+            BackgroundColor = #F5F5F5;
+            BackgroundColorDisabled = #E6E6E6;
+            BackgroundColorDown = #EBEBEB;
+            BackgroundColorHover = white;
+            BorderColor = #3C3C3C;
+            BorderColorDisabled = #7D7D7D;
+            BorderColorDown = black;
+            BorderColorFocused = #1E1EB4;
+            BorderColorHover = black;
+            Borders = (0, 0, 0, 0);
+            Font = "Roboto-BoldCondensed.ttf";
+            TextColor = white;
+            TextColorDisabled = #7D7D7D;
+            TextColorDown = black;
+            TextColorHover = black;
+            Texture = "res/LEVEL SELECT.png" Smooth;
+            TextureDisabled = "res/LEVEL SELECT DISABLED.png" Smooth;
+            TextureDown = "res/LEVEL SELECT PRESSED.png" Smooth;
+            TextureDownFocused = None;
+            TextureDownHover = None;
+            TextureFocused = None;
+            TextureHover = None;
+        }
+    }
+
+    Picture."FIRST STAR" {
+        Position = (90, 243);
+        Size = (39, 41);
+        Visible = false;
+
+        Renderer {
+            Texture = "res/STAR.png" Smooth;
+            TransparentTexture = false;
+        }
+    }
+
+    Picture."SECOND STAR" {
+        Position = (130, 225);
+        Size = (55, 55);
+        Visible = false;
+
+        Renderer {
+            Texture = "res/MIDDLE STAR.png" Smooth;
+            TransparentTexture = false;
+        }
+    }
+
+    Label."LEVEL NUMBER" {
+        AutoSize = true;
+        HorizontalAlignment = Center;
+        Position = (110, 100);
+        Size = (113, 81);
+        Text = 100;
+        TextSize = 62;
+        VerticalAlignment = Center;
+
+        Renderer {
+            BackgroundColor = transparent;
+            BorderColor = #3C3C3C;
+            Borders = (0, 0, 0, 0);
+            Font = "Roboto-BoldCondensed.ttf";
+            TextColor = white;
+            TextureBackground = None;
+
+            Scrollbar {
+                ArrowBackgroundColor = #F5F5F5;
+                ArrowBackgroundColorHover = white;
+                ArrowColor = #3C3C3C;
+                ArrowColorHover = black;
+                TextureArrowDown = None;
+                TextureArrowDownHover = None;
+                TextureArrowUp = None;
+                TextureArrowUpHover = None;
+                TextureThumb = None;
+                TextureThumbHover = None;
+                TextureTrack = None;
+                TextureTrackHover = None;
+                ThumbColor = #DCDCDC;
+                ThumbColorHover = #E6E6E6;
+                TrackColor = #F5F5F5;
+            }
+        }
+    }
+}
+

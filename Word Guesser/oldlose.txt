@@ -1,0 +1,68 @@
+Picture.BACKGROUND {
+    Size = (1920, 1080);
+
+    Renderer {
+        Texture = "res/LBACKGROUND.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+Button."MAIN MENU BUTTON" {
+    Position = (730, 490);
+    Size = (146, 146);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "res/LMAIN MENU BUTTON.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "res/LMAIN MENU BUTTON PRESSED.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+Button."RESTART BUTTON" {
+    Position = (950, 490);
+    Size = (146, 146);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #EBEBEB;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = black;
+        TextColorHover = black;
+        Texture = "res/RESTART BUTTON.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "res/RESTART BUTTON PRESSED.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}

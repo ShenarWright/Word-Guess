@@ -1,0 +1,202 @@
+{
+    "level": 1,
+    "paths" : [
+        {
+            "id" : "level",
+            "path" : "res/images/level"
+        },
+        {
+            "id" : "speed",
+            "path" : "res/images/speed"
+        },
+        {
+            "id": "anger",
+            "path" : "res/images/anger"
+        },
+        {
+            "id": "candy",
+            "path" : "res/images/candy"
+        },
+        {
+            "id" : "sugar",
+            "path" : "res/images/sugar"
+        },
+        {
+            "id" : "chain",
+            "path" : "res/images/chain"
+        },
+        {
+            "id" : "beach",
+            "path" : "res/images/beach"
+        },
+        {
+            "id" : "drink",
+            "path" : "res/images/drink"
+        },
+        {
+            "id" : "faith",
+            "path" : "res/images/faith"
+        },
+        {
+            "id" : "knife",
+            "path" : "res/images/knife"
+
+        },
+        {
+            "id" : "worry",
+            "path" : "res/images/worry"
+        },
+        {
+            "id" : "woods",
+            "path" : "res/images/woods"
+        },
+        {
+            "id" : "music",
+            "path" : "res/images/music"
+        },
+        {
+            "id" : "money",
+            "path" : "res/images/money"
+        },
+        {
+            "id" : "piece",
+            "path" : "res/images/piece"
+        },
+        {
+            "id" : "youth",
+            "path" : "res/images/youth"
+        },
+        {
+            "id" : "watch",
+            "path" : "res/images/watch"
+        },
+        {
+            "id" : "steel",
+            "path" : "res/images/steel"
+        },
+        {
+            "id" : "water",
+            "path" : "res/images/water"
+        },
+        {
+            "id" : "stone",
+            "path" : "res/images/stone"
+        },
+        {
+            "id" : "smoke",
+            "path" : "res/images/smoke"
+        },
+        {
+            "id" : "space",
+            "path" : "res/images/space"
+        },
+        {
+            "id" : "train",
+            "path" : "res/images/train"
+        },
+        {
+            "id" : "supra",
+            "path" : "res/images/supra"
+        },
+        {
+            "id" : "sleep",
+            "path" : "res/images/sleep"
+        },
+        {
+            "id" : "joker",
+            "path" : "res/images/joker"
+        },
+        {
+            "id" : "sight",
+            "path" : "res/images/sight"
+        },
+        {
+            "id" : "woman",
+            "path" : "res/images/woman"
+        },
+        {
+            "id" : "stock",
+            "path" : "res/images/stock"
+        },
+        {
+            "id" : "light",
+            "path" : "res/images/light"
+        },
+        {
+            "id" : "might",
+            "path" : "res/images/might"
+        },
+        {
+            "id" : "fight",
+            "path" : "res/images/fight"
+        },
+        {
+            "id" : "apple",
+            "path" : "res/images/apple"
+        },
+        {
+            "id" : "plane",
+            "path" : "res/images/plane"
+        },
+        {
+            "id" : "brush",
+            "path" : "res/images/brush"
+        },
+        {
+            "id" : "staff",
+            "path" : "res/images/staff"
+        },
+        {
+            "id" : "study",
+            "path" : "res/images/study"
+        },
+        {
+            "id" : "march",
+            "path" : "res/images/march"
+        },
+        {
+            "id" : "phone",
+            "path" : "res/images/phone"
+        },
+        {
+            "id" : "panel",
+            "path" : "res/images/panel"
+        },
+        {
+            "id" : "drive",
+            "path" : "res/images/drive"
+        },
+        {
+            "id" : "happy",
+            "path" : "res/images/happy"
+        },
+        {
+            "id" : "sport",
+            "path" : "res/images/sport"
+        },
+        {
+            "id" : "bones",
+            "path" : "res/images/bones"
+        },
+        {
+            "id" : "dance",
+            "path" : "res/images/dance"
+        },
+        {
+            "id" : "fruit",
+            "path" : "res/images/fruit"
+        },
+        {
+            "id" : "glass",
+            "path" : "res/images/glass"
+        },
+        {
+            "id" : "river",
+            "path" : "res/images/river"
+        },
+        {
+            "id" : "pride",
+            "path" : "res/images/pride"
+        }
+    ]
+}

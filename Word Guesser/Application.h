@@ -19,6 +19,8 @@ private:
 	tgui::Gui gui;
 	tgui::Group::Ptr mainMenu;
 	tgui::Group::Ptr levelSelection;
+	tgui::Group::Ptr helpMenu;
+	tgui::Group::Ptr settingsMenu;
 
 	Game* game;
 	SoundManager sounds;
@@ -42,6 +44,8 @@ private:
 
 	void loadMainMenu();
 	void loadLevelSelection();
+	void loadHelpMenu();
+	void loadSettings();
 
 	void handleResize();
 

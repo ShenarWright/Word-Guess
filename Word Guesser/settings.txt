@@ -1,0 +1,123 @@
+Picture.Background {
+    Size = (1920, 1080);
+
+    Renderer {
+        Texture = "res/S-BACKGROUND.png" Smooth;
+        TransparentTexture = false;
+    }
+}
+
+ToggleButton."MUSIC BUTTON" {
+    Down = false;
+    Position = (1151, 329);
+    Size = (192, 193);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #006EFF;
+        BackgroundColorDownHover = #008CFF;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = white;
+        TextColorHover = black;
+        Texture = "res/MUSIC BUTTON.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "res/MUSIC DISABLED.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+ToggleButton."SOUND BUTTON" {
+    Down = false;
+    Position = (579, 325);
+    Size = (192, 194);
+    TextSize = 13;
+
+    Renderer {
+        BackgroundColor = #F5F5F5;
+        BackgroundColorDisabled = #E6E6E6;
+        BackgroundColorDown = #006EFF;
+        BackgroundColorDownHover = #008CFF;
+        BackgroundColorHover = white;
+        BorderColor = #3C3C3C;
+        BorderColorDisabled = #7D7D7D;
+        BorderColorDown = black;
+        BorderColorFocused = #1E1EB4;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextColor = #3C3C3C;
+        TextColorDisabled = #7D7D7D;
+        TextColorDown = white;
+        TextColorHover = black;
+        Texture = "res/SOUND BUTTON.png" Smooth;
+        TextureDisabled = None;
+        TextureDown = "res/SOUND DISABLED.png" Smooth;
+        TextureDownFocused = None;
+        TextureDownHover = None;
+        TextureFocused = None;
+        TextureHover = None;
+    }
+}
+
+Slider."SOUND SLIDER" {
+    ChangeValueOnScroll = true;
+    InvertedDirection = false;
+    Maximum = 100;
+    Minimum = 0;
+    Position = (537, 612);
+    Size = (242, 13);
+    Step = 1;
+    Value = 0;
+
+    Renderer {
+        BorderColor = #3C3C3C;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextureThumb = "res/SOUND SLIDER THUMB.png" Smooth;
+        TextureThumbHover = None;
+        TextureTrack = "res/SOUND SLIDER.png" Smooth;
+        TextureTrackHover = None;
+        ThumbColor = #F5F5F5;
+        ThumbColorHover = white;
+        TrackColor = #DFDEDC;
+        TrackColorHover = white;
+    }
+}
+
+Slider."MUSIC SLIDER" {
+    ChangeValueOnScroll = true;
+    InvertedDirection = false;
+    Maximum = 100;
+    Minimum = 0;
+    Position = (1152, 612);
+    Size = (242, 13);
+    Step = 1;
+    Value = 7;
+
+    Renderer {
+        BorderColor = #3C3C3C;
+        BorderColorHover = black;
+        Borders = (0, 0, 0, 0);
+        TextureThumb = "res/MUSIC SLIDER THUMB.png" Smooth;
+        TextureThumbHover = None;
+        TextureTrack = "res/MUSIC SLIDER.png" Smooth;
+        TextureTrackHover = None;
+        ThumbColor = #F5F5F5;
+        ThumbColorHover = white;
+        TrackColor = #FF3923;
+        TrackColorHover = white;
+        TransparentTexture = false;
+    }
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "SoundManager.h"
+#include "Utils.h"
 
 class Game
 {
@@ -55,6 +56,7 @@ private:
 
 	void createHud();
 	void createRow(int y);
+	void enableRow(int y, bool enable = true);
 
 	bool checkWord();
 

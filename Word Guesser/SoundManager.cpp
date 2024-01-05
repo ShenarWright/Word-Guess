@@ -19,9 +19,13 @@ SoundManager::SoundManager()
 		Sounds.back().loadFromFile(paths[i]);
 	}
 
+	musicVolume = 100;
+	soundVolume = 100;
+
 	//sf::Sound s;
 	ambient.setLoop(true);
 	ambient.setBuffer(Sounds[3]);
+	ambient.setVolume(musicVolume);
 	ambient.play();
 	//musics[0].play();
 	//musics[0].setLoop(true);
@@ -76,4 +80,42 @@ void SoundManager::playtrack(Sound track, bool loop)
 	//musics[track].setLoop(loop);
 	//musics[track].play();
 
+}
+
+void SoundManager::setMusicVolume(float volume)
+{
+	musicVolume = volume;
+	ambient.setVolume(musicVolume);
+}
+
+void SoundManager::setSoundVolume(float volume)
+{
+	soundVolume = volume;
+	s.setVolume(soundVolume);
+}
+
+void SoundManager::muteSound(bool mute)
+{
+	std::cout << "volume:" << soundVolume << '\n';
+	if (mute)
+	{
+		s.setVolume(0);
+	}
+	else
+	{
+		s.setVolume(soundVolume);
+	}
+}
+
+void SoundManager::muteMusic(bool mute)
+{
+	if (mute)
+	{
+		ambient.setVolume(0);
+	}
+	else
+	{
+		std::cout << "volume:" << musicVolume << '\n';
+		ambient.setVolume(musicVolume);
+	}
 }

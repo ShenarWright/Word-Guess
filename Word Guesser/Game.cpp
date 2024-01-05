@@ -49,6 +49,7 @@ void Game::update()
 	for (int i = 0; i < 5; i++)
 	{
 		//rows[y_axis][i]->getRenderer()->setBackgroundColor(colors[i]);
+
 		if (!rows[y_axis][i]->isFocused())
 			continue;
 
@@ -110,7 +111,9 @@ void Game::update()
 			if (guess.size() == 5)
 			{
 				std::cout << "HELLO\n";
+				enableRow(y_axis, false);
 				y_axis++;
+				enableRow(y_axis);
 				rows[y_axis][0]->setFocused(true);
 				sounds_ptr->playtrack(SoundManager::LOSESOUND);
 			}
@@ -175,9 +178,12 @@ void Game::createHud()
 
 	next->onClick([&]()
 	{
-			std::cout << "LEVEL:" << level << '\n';
-			if (level  < levelDatabase["maxlevel"].asInt())
+			if (level >= levelDatabase["maxlevel"].asInt())
 			{
+				running = false;
+				return;
+			}
+			
 				sounds_ptr->playtrack(SoundManager::AMBIENTMUSIC);
 				sounds_ptr->playtrack(SoundManager::DELETESOUND);
 				won = false;
@@ -194,12 +200,6 @@ void Game::createHud()
 				star1->setVisible(false);
 				star2->setVisible(false);
 				star3->setVisible(false);
-			}
-			else
-			{
-				std::cout << "CALLED\n";
-				running = false;
-			}
 	});
 
 	auto home = win->get<tgui::Button>("MAIN MENU BUTTON");
@@ -273,6 +273,7 @@ void Game::createRow(int y)
 		rows.back().back()->setMaximumCharacters(2);
 		rows.back().back()->setTextSize(0);
 		rows.back().back()->setAlignment(tgui::EditBox::Alignment::Center);
+		rows.back().back()->getRenderer()->setTextColorDisabled(tgui::Color::Black);
 		//rows.back().back()->setInputValidator("[a-zA-Z]");
 		rows.back().back()->onTextChange([&](tgui::EditBox::Ptr editbox,int index,int Y)
 			{
@@ -330,6 +331,14 @@ void Game::createRow(int y)
 	}
 
 	//rows[0][0]->setFocused(true);
+}
+
+void Game::enableRow(int y, bool enable)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		rows[y][i]->setEnabled(enable);
+	}
 }
 
 bool Game::checkWord()
@@ -442,7 +451,13 @@ void Game::rebuildSlate()
 	//hud->add(picture, "IMG");
 
 	for (int i = 0; i < 5; i++)
+	{
 		createRow(i);
+		if (i > 0)
+			enableRow(i, false);
+		else
+			enableRow(i);
+	}
 
 	y_axis = 0;
 
@@ -464,7 +479,7 @@ void Game::getWords()
 
 		while (std::getline(fs, temp))
 		{
-			words.push_back(temp);
+			words.push_back(utils::decrypt(temp));
 		}
 	}
 	else
@@ -482,7 +497,7 @@ void Game::getWords()
 		std::string buffer;
 		while (std::getline(fs, temp))
 		{
-			buffer += temp;
+			buffer += utils::decrypt(temp);
 		}
 
 		Json::Reader reader;
@@ -543,7 +558,7 @@ void Game::saveDatabase()
 		Json::StyledWriter writer;
 		buffer = writer.write(levelDatabase);
 
-		fs << buffer;
+		fs << utils::encrypt(buffer);
 	}
 
 	fs.close();
@@ -561,7 +576,7 @@ void Game::loadLevelDatabase()
 
 		while (std::getline(fs, tmp))
 		{
-			buffer += tmp;
+			buffer += utils::decrypt(tmp);
 		}
 
 		Json::Reader reader;

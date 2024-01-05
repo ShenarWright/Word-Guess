@@ -9,9 +9,11 @@ Application::Application() :
 
 	loadMainMenu();
 	loadLevelSelection();
+	loadHelpMenu();
+	loadSettings();
 
-	std::cout << utils::encrypt("hello{}{}") << '\n';
-	std::cout << utils::decrypt("fgjnm{}{}") << '\n';
+	std::cout << utils::encrypt("hello{}") << '\n';
+	std::cout << utils::decrypt("gfkmn||") << '\n';
 }
 
 Application::~Application()
@@ -60,7 +62,7 @@ void Application::initWindow()
 	fs.close();
 
 	icon.loadFromFile("icon.png");
-	window.setIcon(1934, 1654, icon.getPixelsPtr());
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 
 void Application::initGui()
@@ -160,14 +162,27 @@ void Application::loadMainMenu()
 		sounds.playtrack(SoundManager::PLAYBUTTONSOUND);
 	});
 
-	settings->onClick([&]()
+	settings->onClick([&](tgui::Button::Ptr btn)
 	{
 		sounds.playtrack(SoundManager::PLAYBUTTONSOUND);
-	});
+		if (!settingsMenu->isVisible())
+		{
+			settingsMenu->setVisible(true);
+			mainMenu->setVisible(false);
+		}
+		else
+		{
+			settingsMenu->setVisible(false);
+			mainMenu->setVisible(true);
+		}
+		btn->setVisible(true);
+	},settings);
 
 	help->onClick([&]()
 	{
 		sounds.playtrack(SoundManager::PLAYBUTTONSOUND);
+		mainMenu->setVisible(false);
+		helpMenu->setVisible(true);
 	});
 
 	quit->onClick([&]() 
@@ -302,6 +317,88 @@ void Application::loadLevelSelection()
 	}
 }
 
+void Application::loadHelpMenu()
+{
+	helpMenu = tgui::Group::create();
+	helpMenu->setVisible(false);
+	gui.add(helpMenu);
+
+	auto back = tgui::Button::create("back");
+	back->setSize(100, 100);
+	back->onClick([&]()
+		{
+			helpMenu->setVisible(false);
+			mainMenu->setVisible(true);
+		});
+
+	auto pic = tgui::Picture::create("res/tutorial/1.png");
+	pic->setSize("75%");
+	pic->setPosition("10%");
+
+	helpMenu->add(pic);
+	helpMenu->add(back);
+
+}
+
+void Application::loadSettings()
+{
+	settingsMenu = tgui::Group::create();
+	settingsMenu->setVisible(false);
+
+	try 
+	{
+		settingsMenu->loadWidgetsFromFile("settings.txt");
+	}
+	catch (tgui::Exception& e)
+	{
+		std::cout << e.what() << '\n';
+	}
+
+	auto music = settingsMenu->get<tgui::ToggleButton>("MUSIC BUTTON");
+	auto sound = settingsMenu->get<tgui::ToggleButton>("SOUND BUTTON");
+
+	auto soundSlider = settingsMenu->get<tgui::Slider>("SOUND SLIDER");
+	auto musicSlider = settingsMenu->get<tgui::Slider>("MUSIC SLIDER");
+
+	music->onClick([&](tgui::ToggleButton::Ptr musicbtn)
+		{
+			sounds.muteMusic(musicbtn->isDown());
+			sounds.playtrack(SoundManager::PLAYBUTTONSOUND);
+		},music);
+
+	sound->onClick([&](tgui::ToggleButton::Ptr soundbtn)
+		{
+			sounds.muteSound(soundbtn->isDown());
+			sounds.playtrack(SoundManager::PLAYBUTTONSOUND);
+		},sound);
+
+	soundSlider->onValueChange([&](tgui::Slider::Ptr sSlider,tgui::ToggleButton::Ptr soundbtn)
+		{
+			sounds.setSoundVolume(sSlider->getValue());
+			sounds.muteSound(false);
+			soundbtn->setDown(false);
+		},soundSlider,sound);
+
+	musicSlider->onValueChange([&](tgui::Slider::Ptr sSlider, tgui::ToggleButton::Ptr musicbtn)
+		{
+			sounds.setMusicVolume(sSlider->getValue());
+			sounds.muteMusic(false);
+			musicbtn->setDown(false);
+		},musicSlider,music);
+
+	auto back = tgui::Button::create("Back");
+	back->setSize(100, 100);
+
+	back->onClick([&]()
+		{
+			mainMenu->setVisible(true);
+			settingsMenu->setVisible(false);
+		});
+	
+	settingsMenu->add(back);
+	gui.add(settingsMenu);
+}
+
 void Application::handleResize()
 {
 	gui.setRelativeView({ 0,0,1920.f / (float)window.getSize().x,1080.f / (float)window.getSize().y});
@@ -334,7 +431,7 @@ void Application::loadLevelData()
 
 		while(std::getline(fs, temp))
 		{
-			buffer += temp;
+			buffer += utils::decrypt(temp);
 		}
 
 		Json::Reader reader;

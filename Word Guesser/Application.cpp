@@ -11,9 +11,6 @@ Application::Application() :
 	loadLevelSelection();
 	loadHelpMenu();
 	loadSettings();
-
-	std::cout << utils::encrypt("hello{}") << '\n';
-	std::cout << utils::decrypt("gfkmn||") << '\n';
 }
 
 Application::~Application()
@@ -45,7 +42,6 @@ void Application::initWindow()
 			buffer += temp;
 		}
 
-		//Json::Value value;
 		Json::Reader reader;
 
 		reader.parse(buffer, windowdata);
@@ -142,20 +138,13 @@ void Application::loadMainMenu()
 	mainMenu = tgui::Group::create();
 	mainMenu->loadWidgetsFromFile("home.txt");
 
-	//auto picture = tgui::Picture::create("res/background.png");
 	auto start = mainMenu->get<tgui::Button>("PLAY");
 	auto settings = mainMenu->get<tgui::Button>("settings button");
 	auto help = mainMenu->get<tgui::Button>("HELP");
 	auto quit = mainMenu->get<tgui::Button>("QUIT");
 
-	//start->setSize(200, 150);
-
-	//mainMenu->add(picture);
-	//mainMenu->add(start);
-
 	start->onClick([&]()
 	{
-		//startGame();
 			mainMenu->setVisible(false);
 			levelSelection->setVisible(true);
 
@@ -236,8 +225,6 @@ void Application::loadLevelSelection()
 	number->setAutoSize(false);
 	number->setEnabled(false);
 
-	//auto star3 = levelSelection->get<tgui::Button>("LEVEL SELECT BUTTON"); x: 220 y: 290
-
 	int x = 0;
 	int y = 0;
 
@@ -261,7 +248,6 @@ void Application::loadLevelSelection()
 		num1->setVisible(true);
 		num1->setText(ss.str());
 		num1->ignoreMouseEvents(true);
-		//num1->getRenderer()->setBorders(tgui::Borders(3, 3, 3, 3));
 
 		if (i >= levelData["currentlevel"].asInt())
 			btn1->setEnabled(false);
@@ -357,8 +343,14 @@ void Application::loadSettings()
 	auto music = settingsMenu->get<tgui::ToggleButton>("MUSIC BUTTON");
 	auto sound = settingsMenu->get<tgui::ToggleButton>("SOUND BUTTON");
 
+	music->setDown(sounds.isMusicMute());
+	sound->setDown(sounds.isSoundMute());
+
 	auto soundSlider = settingsMenu->get<tgui::Slider>("SOUND SLIDER");
 	auto musicSlider = settingsMenu->get<tgui::Slider>("MUSIC SLIDER");
+
+	soundSlider->setValue(sounds.getSoundVolume());
+	musicSlider->setValue(sounds.getMusicVolume());
 
 	music->onClick([&](tgui::ToggleButton::Ptr musicbtn)
 		{
@@ -377,6 +369,8 @@ void Application::loadSettings()
 			sounds.setSoundVolume(sSlider->getValue());
 			sounds.muteSound(false);
 			soundbtn->setDown(false);
+
+			if (sSlider->getValue() == 0) soundbtn->setDown(true);
 		},soundSlider,sound);
 
 	musicSlider->onValueChange([&](tgui::Slider::Ptr sSlider, tgui::ToggleButton::Ptr musicbtn)
@@ -384,6 +378,8 @@ void Application::loadSettings()
 			sounds.setMusicVolume(sSlider->getValue());
 			sounds.muteMusic(false);
 			musicbtn->setDown(false);
+
+			if (sSlider->getValue() == 0) musicbtn->setDown(true);
 		},musicSlider,music);
 
 	auto back = tgui::Button::create("Back");

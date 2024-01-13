@@ -68,5 +68,7 @@ private:
 	void saveDatabase();
 	void loadLevelDatabase();
 	char tolower(char a);
+
+	void nextLevel();
 };
 

@@ -7,4 +7,8 @@ namespace utils
 
 	std::string decrypt(std::string input);
 
+	std::string loadEntireFile(std::string path);
+
+	bool saveFile(std::string path,std::string buffer);
+
 }

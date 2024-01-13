@@ -23,17 +23,11 @@ Game::Game(tgui::Gui* gui, SoundManager* sounds,int level):
 	rebuildSlate();
 	parseDuplication();
 
-	//srand((int)time(0));
-	
-	//word = "speed";
 	rows[0][0]->setFocused(true);
 }
 
 Game::~Game()
 {
-	//clearSlate();
-	// 
-	//saveDatabase();
 	sounds_ptr->playtrack(SoundManager::AMBIENTMUSIC);
 	hud->removeAllWidgets();
 	win->removeAllWidgets();
@@ -48,14 +42,11 @@ void Game::update()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		//rows[y_axis][i]->getRenderer()->setBackgroundColor(colors[i]);
-
 		if (!rows[y_axis][i]->isFocused())
 			continue;
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
 		{
-			//rows[y_axis][i]->textEntered(' ');
 			if (rows[y_axis][i]->getCaretPosition() < 1 && i > 0)
 			{
 				rows[y_axis][i]->setFocused(false);
@@ -70,6 +61,12 @@ void Game::update()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && keyignoretimer.getElapsedTime().asMilliseconds() > 250.f)
 	{
+		if (won)
+		{
+			nextLevel();
+			keyignoretimer.restart();
+			return;
+		}
 
 		if (checkWord())
 		{
@@ -127,8 +124,6 @@ void Game::update()
 		}
 		keyignoretimer.restart();
 	}
-
-
 }
 
 void Game::render(sf::RenderTarget& target)
@@ -178,28 +173,7 @@ void Game::createHud()
 
 	next->onClick([&]()
 	{
-			if (level >= levelDatabase["maxlevel"].asInt())
-			{
-				running = false;
-				return;
-			}
-			
-				sounds_ptr->playtrack(SoundManager::AMBIENTMUSIC);
-				sounds_ptr->playtrack(SoundManager::DELETESOUND);
-				won = false;
-				hud->setVisible(true);
-				win->setVisible(false);
-
-				clearSlate();
-				rebuildSlate();
-
-				auto star1 = win->get<tgui::Picture>("STAR 1");
-				auto star2 = win->get<tgui::Picture>("STAR 2");
-				auto star3 = win->get<tgui::Picture>("STAR 3");
-
-				star1->setVisible(false);
-				star2->setVisible(false);
-				star3->setVisible(false);
+		nextLevel();
 	});
 
 	auto home = win->get<tgui::Button>("MAIN MENU BUTTON");
@@ -207,7 +181,6 @@ void Game::createHud()
 	home->onClick([&]()
 	{
 		running = false;
-		//rows.clear();
 		sounds_ptr->playtrack(SoundManager::DELETESOUND);
 
 		auto star1 = win->get<tgui::Picture>("STAR 1");
@@ -254,9 +227,6 @@ void Game::createHud()
 		clearSlate();
 		rebuildSlate();
 	});
-
-	//hud->add(back);
-	//hud->add(editbox);
 }
 
 void Game::createRow(int y)
@@ -268,41 +238,18 @@ void Game::createRow(int y)
 	{
 		rows.back().push_back(tgui::EditBox::create());
 		rows.back().back() = tgui::EditBox::copy(editbox);
-		//rows.back().back()->setSize(100, 100);
 		rows.back().back()->setPosition(editbox->getPosition().x + (i * 200), editbox->getPosition().y + (y * 190));
 		rows.back().back()->setMaximumCharacters(2);
 		rows.back().back()->setTextSize(0);
 		rows.back().back()->setAlignment(tgui::EditBox::Alignment::Center);
 		rows.back().back()->getRenderer()->setTextColorDisabled(tgui::Color::Black);
-		//rows.back().back()->setInputValidator("[a-zA-Z]");
 		rows.back().back()->onTextChange([&](tgui::EditBox::Ptr editbox,int index,int Y)
 			{
-				//std::cout << "Called\n";
-				//std::cout << editbox->getCaretPosition();
 				if (editbox->getCaretPosition() == 1 && index < 4)
 				{
 					editbox->setFocused(false);
 					rows[Y][index + 1]->setFocused(true);
 				}
-				/*if (editbox->getText().toStdString()[0] == ' ')
-				{
-
-					//if(editbox->getCaretPosition() > 1)
-
-					tgui::String text;
-					editbox->setText(text);
-					std::cout << "HEY\n";
-					if (index == 0)
-					{
-						return;
-					}
-
-					sounds_ptr->playtrack(SoundManager::Sound::DELETESOUND);
-					//std::cout << "SUMMONED\n";
-					editbox->setFocused(false);
-					rows[Y][index - 1]->setFocused(true);
-
-				}*/
 				if (editbox->getCaretPosition() > 1)
 				{
 					char a = editbox->getText().toStdString()[1];
@@ -312,7 +259,6 @@ void Game::createRow(int y)
 					if (index > 3)
 						return;
 
-					//sounds_ptr->playtrack(SoundManager::Sound::KEYPRESSSOUND);
 					rows[Y][index + 1]->setText(a);
 				}
 				if (editbox->getCaretPosition() < 1)
@@ -329,8 +275,6 @@ void Game::createRow(int y)
 		hud->add(rows.back().back());
 		std::cout << rows.back().back()->getMaximumCharacters() << '\n';
 	}
-
-	//rows[0][0]->setFocused(true);
 }
 
 void Game::enableRow(int y, bool enable)
@@ -343,7 +287,6 @@ void Game::enableRow(int y, bool enable)
 
 bool Game::checkWord()
 {
-	//std::string guess;
 	guess = std::string();
 	for (int i = 0; i < 5; i++)
 	{
@@ -405,50 +348,36 @@ void Game::clearSlate()
 		for (int i = 0; i < 5; i++)
 		{
 			guiptr->remove(rows[y][i]);
-			//colors[i] = tgui::Color::White;
 		}
 		rows[y].clear();
 	}
 
-	//hud->remove(picture);
 	hud->remove(label);
 	rows.clear();
 }
 
 void Game::rebuildSlate()
 {
-	//This will do more in the future
-
 	selectWord();
 	parseDuplication();
-
 
 	auto label = hud->get<tgui::Label>("Label1");
 	level++;
 	std::stringstream ss;
 	ss << level;
 	label->setText(ss.str());
-	//label->setPosition(800, 0);
-	//label->setSize(150, 100);
-	//label->setTextSize(30);
-	//label->getRenderer()->setTextColor(tgui::Color::Blue);
 
 	try
 	{
-
-	picture = hud->get<tgui::Picture>("Picture");//tgui::Picture::create(imgpath.c_str());
-	sf::Texture texture;
-	texture.loadFromFile(imgpath);
-	picture->getRenderer()->setTexture(texture);
+		picture = hud->get<tgui::Picture>("Picture");
+		sf::Texture texture;
+		texture.loadFromFile(imgpath);
+		picture->getRenderer()->setTexture(texture);
 	}
 	catch (tgui::Exception e)
 	{
 		std::cout << e.what() << '\n';
 	}
-	//picture->setPosition(1100, 200);
-	//picture->setSize(300, 300);
-
-	//hud->add(picture, "IMG");
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -463,9 +392,6 @@ void Game::rebuildSlate()
 
 	rows[0][0]->setFocused(true);
 	stars = 0;
-
-	//for (int i = 0; i < 5; i++)
-		//colors[i] = tgui::Color::White;
 }
 
 void Game::getWords()
@@ -509,26 +435,12 @@ void Game::getWords()
 		std::cout << "Failed to load json file\n";
 	}
 	fs.close();
-
-	/*fs.open("data/level.txt");
-
-	if (fs.is_open())
-	{
-		fs >> level;
-		std::cout << "Called\n";
-		level--;
-	}
-
-	fs.close();*/
 }
 
 void Game::selectWord()
 {
-	//int a =  rand() % words.size();
 	word = words[level];
 	std::cout << word << '\n';
-
-	//words.erase(words.begin());
 
 	for (int i = 0; i < pathDatabase.size();i++)
 	{
@@ -594,6 +506,32 @@ char Game::tolower(char a)
 		return a + 32;
 
 	return a;
+}
+
+void Game::nextLevel()
+{
+	if (level >= levelDatabase["maxlevel"].asInt())
+	{
+		running = false;
+		return;
+	}
+
+	sounds_ptr->playtrack(SoundManager::AMBIENTMUSIC);
+	sounds_ptr->playtrack(SoundManager::DELETESOUND);
+	won = false;
+	hud->setVisible(true);
+	win->setVisible(false);
+
+	clearSlate();
+	rebuildSlate();
+
+	auto star1 = win->get<tgui::Picture>("STAR 1");
+	auto star2 = win->get<tgui::Picture>("STAR 2");
+	auto star3 = win->get<tgui::Picture>("STAR 3");
+
+	star1->setVisible(false);
+	star2->setVisible(false);
+	star3->setVisible(false);
 }
 
 void Game::parseDuplication()

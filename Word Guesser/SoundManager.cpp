@@ -1,6 +1,7 @@
 #include "SoundManager.h"
 
-SoundManager::SoundManager()
+SoundManager::SoundManager():
+	musicVolume(0),soundVolume(0)
 {
 	std::string paths[] =
 	{
@@ -19,16 +20,34 @@ SoundManager::SoundManager()
 		Sounds.back().loadFromFile(paths[i]);
 	}
 
-	musicVolume = 100;
-	soundVolume = 100;
+	std::string buffer = utils::loadEntireFile("data/music.json");
+	Json::Reader reader;
+	reader.parse(buffer, musicData);
 
-	//sf::Sound s;
+	musicVolume = musicData["music"]["volume"].asInt();
+	soundVolume = musicData["sound"]["volume"].asInt();
+
+
 	ambient.setLoop(true);
 	ambient.setBuffer(Sounds[3]);
 	ambient.setVolume(musicVolume);
 	ambient.play();
-	//musics[0].play();
-	//musics[0].setLoop(true);
+
+	if (musicData["music"]["isMute"].asBool()) muteMusic();
+	if (musicData["sound"]["isMute"].asBool()) muteSound();
+}
+
+SoundManager::~SoundManager()
+{
+	musicData["music"]["isMute"] = isMusicMute();
+	musicData["sound"]["isMute"] = isSoundMute();
+
+	musicData["music"]["volume"] = musicVolume;
+	musicData["sound"]["volume"] = musicVolume;
+
+	Json::StyledWriter writer;
+	std::string buffer = writer.write(musicData);
+	utils::saveFile("data/music.json",buffer);
 }
 
 void SoundManager::update()
@@ -96,9 +115,9 @@ void SoundManager::setSoundVolume(float volume)
 
 void SoundManager::muteSound(bool mute)
 {
-	std::cout << "volume:" << soundVolume << '\n';
 	if (mute)
 	{
+		std::cout << "Sound mute\n";
 		s.setVolume(0);
 	}
 	else
@@ -111,11 +130,35 @@ void SoundManager::muteMusic(bool mute)
 {
 	if (mute)
 	{
+		std::cout << "Music mute\n";
 		ambient.setVolume(0);
 	}
 	else
 	{
-		std::cout << "volume:" << musicVolume << '\n';
 		ambient.setVolume(musicVolume);
 	}
+}
+
+
+
+bool SoundManager::isSoundMute()
+{
+	if (s.getVolume() == 0) return true;
+	return false;
+}
+
+bool SoundManager::isMusicMute()
+{
+	if (ambient.getVolume() == 0) return true;
+	return false;
+}
+
+float SoundManager::getSoundVolume()
+{
+	return musicVolume;
+}
+
+float SoundManager::getMusicVolume()
+{
+	return soundVolume;
 }

@@ -1,11 +1,13 @@
 #pragma once
 
 #include "pch.h"
+#include "Utils.h"
 
 class SoundManager
 {
 public:
 	SoundManager();
+	~SoundManager();
 
 	void update();
 
@@ -25,15 +27,20 @@ public:
 
 	void muteSound(bool mute = true);
 	void muteMusic(bool mute = true);
+
+	bool isSoundMute();
+	bool isMusicMute();
+
+	float getSoundVolume();
+	float getMusicVolume();
 private:
 	std::vector<sf::SoundBuffer>Sounds;
 	sf::Sound ambient;
 	sf::Sound s;
 
+	Json::Value musicData;
+
 	float musicVolume;
 	float soundVolume;
-
-	float oldMusicVolume;
-	float oldSoundVolume;
 };
 

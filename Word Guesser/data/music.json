@@ -1,10 +1,10 @@
 {
    "music" : {
-      "isMute" : true,
-      "volume" : 100.0
+      "isMute" : false,
+      "volume" : 44.0
    },
    "sound" : {
       "isMute" : false,
-      "volume" : 100.0
+      "volume" : 44.0
    }
 }

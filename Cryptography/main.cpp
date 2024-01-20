@@ -2,6 +2,10 @@
 #include <string>
 #include <fstream>
 
+#include <TGUI/TGUI.hpp>
+#include <TGUI/Backend/SFML-Graphics.hpp>
+#include <SFML/Graphics.hpp>
+
 std::string removeQuotes(std::string str)
 {
 	for (int i = 0; i < str.size(); i++)
@@ -40,7 +44,7 @@ std::string decrypt(std::string input)
 	return buffer;
 }
 
-
+/*
 int main()
 {
 	while (true)
@@ -90,5 +94,40 @@ int main()
 			std::cout << "Could not open file:" << str << '\n';
 		}
 		ifs.close();
+	}
+}*/
+
+int main()
+{
+	sf::RenderWindow window(sf::VideoMode(800, 800), "Crypt");
+	sf::Event ev;
+
+	tgui::Gui gui;
+	gui.setTarget(window);
+
+	try {
+		auto filedialog = tgui::FileDialog();//::create();
+		//filedialog->onEscapeKeyPress([&]() {std::cout << filedialog->getPath().asString() << '\n'; });
+		//gui.add(filedialog);
+	}
+	catch (tgui::Exception& e)
+	{
+		std::cout << e.what() << '\n';
+	}
+
+
+	while (window.isOpen())
+	{
+		while (window.pollEvent(ev))
+		{
+			if (ev.type == sf::Event::Closed)
+				window.close();
+
+			gui.handleEvent(ev);
+		}
+
+		window.clear();
+		gui.draw();
+		window.display();
 	}
 }

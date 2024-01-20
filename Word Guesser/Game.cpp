@@ -370,9 +370,9 @@ void Game::rebuildSlate()
 	try
 	{
 		picture = hud->get<tgui::Picture>("Picture");
-		sf::Texture texture;
-		texture.loadFromFile(imgpath);
-		picture->getRenderer()->setTexture(texture);
+	//	sf::Texture texture;
+		//texture.loadFromFile(imgpath);
+		picture->getRenderer()->setTexture(imgpath.c_str());
 	}
 	catch (tgui::Exception e)
 	{

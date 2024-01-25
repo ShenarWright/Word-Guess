@@ -382,6 +382,7 @@ void Game::rebuildSlate()
 	for (int i = 0; i < 5; i++)
 	{
 		createRow(i);
+
 		if (i > 0)
 			enableRow(i, false);
 		else

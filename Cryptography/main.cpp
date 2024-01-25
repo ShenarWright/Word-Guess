@@ -18,6 +18,19 @@ std::string removeQuotes(std::string str)
 	return str;
 }
 
+std::string getFilename(std::string str)
+{
+	std::string buffer;
+	for (int i = str.size() - 1; i > 0; i--)
+	{
+		if (str[i] == '/')
+			return buffer;
+
+		buffer.insert(buffer.begin(), str[i]);
+	}
+	return buffer;
+}
+
 std::string encrypt(std::string input)
 {
 	int multiple = 1;
@@ -44,7 +57,7 @@ std::string decrypt(std::string input)
 	return buffer;
 }
 
-/*
+
 int main()
 {
 	while (true)
@@ -57,46 +70,56 @@ int main()
 		std::cin >> action;
 
 		std::string str;
-		std::cout << "Please state the location of the file using relative or absolute path:\n";
-		std::cin.ignore();
-		std::getline(std::cin, str);
+		//std::cout << "Please state the location of the file using relative or absolute path:\n";
+		//std::cin.ignore();
+		//std::getline(std::cin, str);
 
 		std::ifstream ifs;
 		std::ofstream ofs;
 
-		ifs.open(removeQuotes(str));
+		std::string paths[] = {
+			"C:/Users/dante/OneDrive/Documents/C++/VS Project/Word Guesser/Word Guesser/data/level.json",
+			"C:/Users/dante/OneDrive/Documents/C++/VS Project/Word Guesser/Word Guesser/data/words1.txt",
+			"C:/Users/dante/OneDrive/Documents/C++/VS Project/Word Guesser/Word Guesser/data/words-images.json"
+		};
 
-		if (ifs.is_open())
-		{
-			ofs.open("data/file.txt");
-			std::string buffer;
 
-			if (action == 1)
-			{
-				while (std::getline(ifs, buffer))
-				{
-					ofs << encrypt(buffer) << '\n';
-				}
-				std::cout << "FILE COMPLETED\n";
-			}
-			else if(action == 2)
-			{
-				while (std::getline(ifs, buffer))
-				{
-					ofs << decrypt(buffer) << '\n';
-				}
-				std::cout << "FILE COMPLETED\n";
-			}
-			ofs.close();
-		}
-		else
+		for (int i = 0; i < 3; i++)
 		{
-			std::cout << "Could not open file:" << str << '\n';
+			ifs.open(paths[i]);
+			if (ifs.is_open())
+			{
+				ofs.open("data/" + getFilename(paths[i]));
+				std::string buffer;
+
+				if (action == 1)
+				{
+					while (std::getline(ifs, buffer))
+					{
+						ofs << encrypt(buffer) << '\n';
+					}
+					std::cout << "FILE COMPLETED\n";
+				}
+				else if(action == 2)
+				{
+					while (std::getline(ifs, buffer))
+					{
+						ofs << decrypt(buffer) << '\n';
+					}
+					std::cout << "FILE COMPLETED\n";
+				}
+				ofs.close();
+			}
+			else
+			{
+				std::cout << "Could not open file:" << str << '\n';
+			}
+			ifs.close();
 		}
-		ifs.close();
+
 	}
-}*/
-
+}
+/*
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 800), "Crypt");
@@ -131,3 +154,4 @@ int main()
 		window.display();
 	}
 }
+*/

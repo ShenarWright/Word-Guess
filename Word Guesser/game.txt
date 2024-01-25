@@ -123,7 +123,7 @@ Button."BACK BUTTON" {
 }
 
 Label.Label1 {
-    Position = (1620, 137);
+    Position = (1620, 142);
     ScrollbarPolicy = Never;
     Size = (108, 47);
     Text = 0;

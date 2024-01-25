@@ -43,7 +43,7 @@ SoundManager::~SoundManager()
 	musicData["sound"]["isMute"] = isSoundMute();
 
 	musicData["music"]["volume"] = musicVolume;
-	musicData["sound"]["volume"] = musicVolume;
+	musicData["sound"]["volume"] = soundVolume;
 
 	Json::StyledWriter writer;
 	std::string buffer = writer.write(musicData);
@@ -155,10 +155,10 @@ bool SoundManager::isMusicMute()
 
 float SoundManager::getSoundVolume()
 {
-	return musicVolume;
+	return soundVolume;
 }
 
 float SoundManager::getMusicVolume()
 {
-	return soundVolume;
+	return musicVolume;
 }

@@ -397,7 +397,7 @@ void Application::loadSettings()
 
 void Application::handleResize()
 {
-	gui.setRelativeView({ 0,0,1920.f / (float)window.getSize().x,1080.f / (float)window.getSize().y});
+	gui.setRelativeView({ 0,0,1920.f / (float)window.getSize().x ,1080.f / (float)window.getSize().y });
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 

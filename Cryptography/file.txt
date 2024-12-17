@@ -1,8 +1,0 @@
-{
-   "currentlevel" : 100,
-   "maxlevel" : 100,
-   "stars" : [
-      0
-   ]
-}
-
